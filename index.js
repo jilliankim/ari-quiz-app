@@ -87,16 +87,17 @@ $(function() {
             console.log('answer correct');
             feedbackCorrect();
             //wrong function name
-            incrementScore();
+            //incrementScore();
         } else {
             console.log('answer wrong');
-            feedbackWrong();
+            feedbackWrong(correctAnswer);
         }
     }
 
     //increment question number
     function incrementQuestion() {
         questionNumber++;
+        console.log(questionNumber);
         $('.questionNumber').text(questionNumber + 1);
         console.log('question number incremented')
     }
@@ -110,11 +111,12 @@ $(function() {
 
     //user answer is correct
     function feedbackCorrect() {
-        let correctAnswer = `${STORE[questionNumber].correctAnswer}`;
-        $('.questionForm').html(`<div class="correctFeedback"></div><h2><b>That's correct!</b></h2>
+        //let correctAnswer = `${STORE[questionNumber].correctAnswer}`;
+        $('.questionForm-0').remove()
+        $('.questionForm-0').html(`<div class="correctFeedback"></div><h2><b>That's correct!</b></h2>
         <div class="button-container">
-        <div class="next-btn">
-        <button type="submit" class="js-submit-button">Submit</button></div>
+        <div class="next-btn2">
+        <button type="submit" class="js-submit-button">Next</button></div>
         <div class="restart-btn">
         <button type="button" class="js-restart-button">Restart</button></div>
         </div>`);
@@ -122,16 +124,19 @@ $(function() {
     }
 
     //user answer is wrong
-    function feedbackWrong() {
-        let correctAnswer = `${STORE[questionNumber].correctAnswer}`;
-        $('.questionForm').html(`<div class="wrongFeedback"></div><h2><b>You got it wrong!</b></h2>
+    function feedbackWrong(correctAnswer) {
+        //let correctAnswer = `${STORE[questionNumber].correctAnswer}`;
+        $('.questionForm-0').remove()
+        $('.questionForm-0').html(`<div class="wrongFeedback"></div><h2><b>You got it wrong!</b></h2>
         <h2>The correct answer is <span class="answer">${correctAnswer}</span></h2>
         <div class="button-container">
-        <div class="next-btn">
-        <button type="submit" class="js-submit-button">Submit</button></div>
+        <div class="next-btn2">
+        <button type="submit" class="js-submit-button">Next</button></div>
         <div class="restart-btn">
         <button type="button" class="js-restart-button">Restart</button></div>
         </div>`);
+        //where's the next question???
+        //click on js-submit-button
     }
 
     //begin the quiz, hide beginning div and show quiz form
@@ -147,13 +152,13 @@ $(function() {
 
     //render next question
     function renderNextQuestion() {
-        $('main').on('click', '.js-next-button', function(event) {
+        $('.next-btn2').on('click', '.js-submit-button', function(event) {
             event.preventDefault();
             console.log('next question button clicked');
 
             if (questionNumber < STORE.length) {
                 generateQuestion();
-                checkUserAnswer();
+                //checkUserAnswer();
                 incrementQuestion();
             } else {
                 renderResults();
